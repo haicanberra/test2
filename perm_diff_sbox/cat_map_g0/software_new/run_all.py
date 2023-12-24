@@ -58,7 +58,7 @@ for i in range(0, N_files):
 
 # Show images
 kI_merge = split_images(kI=kI, list_num_bits_pre=list_num_bits_pre)
-show_images(
+#show_images(
     kI=kI_merge,
     suptitle="Plain images",
     str_Fnames=str_Fnames,
@@ -83,10 +83,10 @@ if os.path.exists(dir_decrypted):
 os.mkdir(dir_decrypted)
 
 # Images' sizes
-print("1. Images' sizes: ", list_im_size)
+#print("1. Images' sizes: ", list_im_size)
 
 # Number of bits
-print("2. Number of bits: ", list_num_bits_pre)
+#print("2. Number of bits: ", list_num_bits_pre)
 
 # Maximum number of pixels of an image
 max_picture = 0
@@ -98,7 +98,7 @@ for k in range(dicom_global_params.K):
         max_picture = k
 
 max_num_pix = max([list_im_size[i][0] * list_im_size[i][1] for i in range(0, N_files)])
-print("3. Maximum number of pixels of an image: ", max_num_pix)
+#print("3. Maximum number of pixels of an image: ", max_num_pix)
 
 
 # S0
@@ -122,22 +122,22 @@ for i in range(dicom_global_params.K):
     kP_plus.append([kC[i][0][1]])
 kP_plus = np.asarray(kP_plus)
 
-print("1. S0: ", S0)
-print("\n2. kC_minus: ", kC_minus)
-print("\n3. kP_plus: ", kP_plus)
+#print("1. S0: ", S0)
+#print("\n2. kC_minus: ", kC_minus)
+#print("\n3. kP_plus: ", kP_plus)
 
 
-print("---------------------------------------------------------")
-print("\t\tEncryption Initial Parameters")
-print("---------------------------------------------------------")
+#print("---------------------------------------------------------")
+#print("\t\tEncryption Initial Parameters")
+#print("---------------------------------------------------------")
 
-print("1. kC: \n", kC)
-print("\n2. kC_minus: \n", kC_minus)
-print("\n   kP_plus: \n", kP_plus)
-print("\n3. S0: \n", S0)
-print("\n\n")
+#print("1. kC: \n", kC)
+#print("\n2. kC_minus: \n", kC_minus)
+#print("\n   kP_plus: \n", kP_plus)
+#print("\n3. S0: \n", S0)
+#print("\n\n")
 
-print(
+#print(
     "=============================START ENCRYPTION PROCESSING============================="
 )
 
@@ -149,17 +149,17 @@ done = [0 for k in range(dicom_global_params.K)]
 last_state = ["" for k in range(dicom_global_params.K)]
 
 for i in range(dicom_global_params.Ne * max_num_pix):
-    print("\n------------------------")
-    print("|      Iteration " + str(i) + "     |")
-    print("------------------------")
+    #print("\n------------------------")
+    #print("|      Iteration " + str(i) + "     |")
+    #print("------------------------")
 
     # E, SK, state
     E, SK, state = bf.session_key_scheduling(
         lfsr=lfsr, num_cycles=dicom_global_params.num_cycles
     )
-    print("1. E: \n", E, "\n")
-    print("2. SK: \n", SK, "\n")
-    print("3. LFSR's state: \n", state, "\n")
+    #print("1. E: \n", E, "\n")
+    #print("2. SK: \n", SK, "\n")
+    #print("3. LFSR's state: \n", state, "\n")
 
     # Saving last states
     last_state = bf.save_lfsr_state(state=state, done=done, last_state=last_state)
@@ -172,7 +172,7 @@ for i in range(dicom_global_params.Ne * max_num_pix):
         Y_FAST_Cat=dicom_cat_params.Y_FAST_Cat,
         R=R_iterations,
     )
-    print("4. X_R: \n", X_R, "\n")
+    #print("4. X_R: \n", X_R, "\n")
 
     # XY, phi generation
     XY_new, phi_source, phi_dest = bf.xy_phi_generation(
@@ -185,9 +185,9 @@ for i in range(dicom_global_params.Ne * max_num_pix):
         i_base_position=dicom_cat_params.i_base_position,
         j_base_position=dicom_cat_params.j_base_position,
     )
-    print("5. XY_new: \n", XY_new, "\n")
-    print("6. phi_source: \n", phi_source, "\n")
-    print("7. phi_dest: \n", phi_dest, "\n")
+    #print("5. XY_new: \n", XY_new, "\n")
+    #print("6. phi_source: \n", phi_source, "\n")
+    #print("7. phi_dest: \n", phi_dest, "\n")
 
     # Bit Pre-processing for all images
     XY_P, phi_source_P, phi_dest_P = bf.bit_pre_processing(
@@ -198,9 +198,9 @@ for i in range(dicom_global_params.Ne * max_num_pix):
         list_im_size=list_im_size,
         list_num_bits_pre=list_num_bits_pre,
     )
-    print("8. XY_P: \n", XY_P, "\n")
-    print("9. phi_source_P: \n", phi_source_P, "\n")
-    print("10. phi_dest_P: \n", phi_dest_P, "\n")
+    #print("8. XY_P: \n", XY_P, "\n")
+    #print("9. phi_source_P: \n", phi_source_P, "\n")
+    #print("10. phi_dest_P: \n", phi_dest_P, "\n")
 
     # Permutation and Diffusion for Encryption process
     XY, kC_minus, kP_plus, kC = bf.dicom_mie_perm_diff_enc(
@@ -220,14 +220,14 @@ for i in range(dicom_global_params.Ne * max_num_pix):
         str_Fnames=str_Fnames,
         grey_image=grey_image,
     )
-    print("\n11. XY: \n", XY)
-    print("\n12. list_n: \n", list_n)
-    print("\n13. kC_minus: \n", kC_minus)
-    print("\n14. kP_plus: \n", kP_plus)
-    print("\n15. kC: \n", kC)
-    print("\n16. Done: \n", done)
+    #print("\n11. XY: \n", XY)
+    #print("\n12. list_n: \n", list_n)
+    #print("\n13. kC_minus: \n", kC_minus)
+    #print("\n14. kP_plus: \n", kP_plus)
+    #print("\n15. kC: \n", kC)
+    #print("\n16. Done: \n", done)
 
-    print("\n17. Last states: \n", last_state)
+    #print("\n17. Last states: \n", last_state)
 
     end_time = time.time()  # Record end time in senconds unit
 
@@ -239,14 +239,14 @@ kI_cipher = []
 str_Fnames_cipher = str_Fnames.copy()
 
 # Images' sizes
-print("1. Images' sizes: ", list_im_size)
+#print("1. Images' sizes: ", list_im_size)
 
 # Number of bits
-print("2. Number of bits: ", list_num_bits_pre)
+#print("2. Number of bits: ", list_num_bits_pre)
 
 # Maximum number of pixels of an image
 max_num_pix = max([list_im_size[i][0] * list_im_size[i][1] for i in range(0, N_files)])
-print("3. Maximum number of pixels of an image: ", max_num_pix)
+#print("3. Maximum number of pixels of an image: ", max_num_pix)
 
 for i in range(0, N_files):
     name = I_ciphers[i]
@@ -274,7 +274,7 @@ for i in range(0, N_files):
 
 # Show images
 kI_cipher_merge = split_images(kI=kI_cipher, list_num_bits_pre=list_num_bits_pre)
-show_images(
+#show_images(
     kI=kI_cipher_merge,
     suptitle="Cipher images",
     str_Fnames=str_Fnames_cipher,
@@ -304,15 +304,15 @@ for k in range(dicom_global_params.K):
     )
 kP_cipher_plus = np.asarray(kP_cipher_plus)
 
-print("5. kC_cipher_minus: ", kC_cipher_minus)
-print("6. kP_cipher_plus: ", kP_cipher_plus)
+#print("5. kC_cipher_minus: ", kC_cipher_minus)
+#print("6. kP_cipher_plus: ", kP_cipher_plus)
 
 
-print("---------------------------------------------------------")
-print("\t\tDecryption Initial Parameters")
-print("---------------------------------------------------------")
+#print("---------------------------------------------------------")
+#print("\t\tDecryption Initial Parameters")
+#print("---------------------------------------------------------")
 
-# Order of image user want to decrypt
+exit(0)  # Order of image user want to decrypt
 k = 0
 
 # kC_cipher_minus
@@ -330,15 +330,15 @@ kC_cipher_k = kC_cipher[k].copy()
 
 state_k = last_state[k]
 
-print("1. kC_cipher[" + str(k) + "]: \n", kC_cipher_k)
-print("\n2. kC_cipher_minus: \n", kC_cipher_minus_k)
-print("\n3. kP_cipher_plus: \n", kP_cipher_plus_k)
-print("\n4. S0: \n", S0)
-print("\n5. E: \n", E)
-print("\n6. State of LFSR: \n", state_k)
-print("\n\n")
+#print("1. kC_cipher[" + str(k) + "]: \n", kC_cipher_k)
+#print("\n2. kC_cipher_minus: \n", kC_cipher_minus_k)
+#print("\n3. kP_cipher_plus: \n", kP_cipher_plus_k)
+#print("\n4. S0: \n", S0)
+#print("\n5. E: \n", E)
+#print("\n6. State of LFSR: \n", state_k)
+#print("\n\n")
 
-print(
+#print(
     "=============================START DECRYPTION PROCESSING============================="
 )
 
@@ -348,22 +348,22 @@ XY_k = [list_im_size[k][0] - 1, list_im_size[k][1] - 1]
 
 for n in range(dicom_global_params.Ne - 1, -1, -1):
     start_time = time.time()  # Record start time in seconds unit
-    print("\n")
-    print("\t---------------------------------------------------------")
-    print("\t-------------------|      STEP ", n, "   |-------------------")
-    print("\t---------------------------------------------------------\n")
+    #print("\n")
+    #print("\t---------------------------------------------------------")
+    #print("\t-------------------|      STEP ", n, "   |-------------------")
+    #print("\t---------------------------------------------------------\n")
     for i in range(list_im_size[k][0] * list_im_size[k][1] - 1, -1, -1):
-        print("\n------------------------")
-        print("|      Iteration " + str(i) + "     |")
-        print("------------------------")
+        #print("\n------------------------")
+        #print("|      Iteration " + str(i) + "     |")
+        #print("------------------------")
 
         # E, sk_k, state
         E, sk_k, state_k = bf.session_key_scheduling_dec_k(
             lfsr=lfsr, num_cycles=dicom_global_params.num_cycles, k=k
         )
-        print("\n1. E: \n", E, "\n")
-        print("\n2. sk_k: \n", sk_k, "\n")
-        print("\n3. LFSR's state: \n", state_k, "\n")
+        #print("\n1. E: \n", E, "\n")
+        #print("\n2. sk_k: \n", sk_k, "\n")
+        #print("\n3. LFSR's state: \n", state_k, "\n")
 
         # PCM Cat
         X_R = bf.pcm_cat(
@@ -373,7 +373,7 @@ for n in range(dicom_global_params.Ne - 1, -1, -1):
             Y_FAST_Cat=dicom_cat_params.Y_FAST_Cat,
             R=R_iterations,
         )
-        print("4. X_R: \n", X_R, "\n")
+        #print("4. X_R: \n", X_R, "\n")
 
         # XY, phi generation
         XY_new_k, phi_source_k, phi_dest_k = bf.xy_phi_generation_k(
@@ -388,10 +388,10 @@ for n in range(dicom_global_params.Ne - 1, -1, -1):
             i_base_position_k=dicom_cat_params.i_base_position + 2 * k,
             j_base_position_k=dicom_cat_params.j_base_position + 2 * k,
         )
-        print("5. k: \n", k, "\n")
-        print("6. XY_new_k: \n", XY_new_k, "\n")
-        print("7. phi_source_k: \n", phi_source_k, "\n")
-        print("8. phi_dest_k: \n", phi_dest_k, "\n")
+        #print("5. k: \n", k, "\n")
+        #print("6. XY_new_k: \n", XY_new_k, "\n")
+        #print("7. phi_source_k: \n", phi_source_k, "\n")
+        #print("8. phi_dest_k: \n", phi_dest_k, "\n")
 
         # Bit Pre-processing for all images
         XY_Pk, phi_source_Pk, phi_dest_Pk = bf.bit_pre_processing_k(
@@ -403,9 +403,9 @@ for n in range(dicom_global_params.Ne - 1, -1, -1):
             N_k=list_im_size[k][1],
             num_bits_pre_k=list_num_bits_pre[k],
         )
-        print("9. XY_Pk: \n", XY_Pk, "\n")
-        print("10. phi_source_Pk: \n", phi_source_Pk, "\n")
-        print("11. phi_dest_Pk: \n", phi_dest_Pk, "\n")
+        #print("9. XY_Pk: \n", XY_Pk, "\n")
+        #print("10. phi_source_Pk: \n", phi_source_Pk, "\n")
+        #print("11. phi_dest_Pk: \n", phi_dest_Pk, "\n")
 
         # Permutation and Diffusion for Encryption process
         (
@@ -427,20 +427,20 @@ for n in range(dicom_global_params.Ne - 1, -1, -1):
             Sbox=dicom_global_params.Sbox_inv,
             n=n,
         )
-        print("\n12. XY_k: \n", XY_k)
-        print("\n13. kC_cipher_minus_k: \n", kC_cipher_minus_k)
-        print("\n14. kP_cipher_plus_k: \n", kP_cipher_plus_k)
-        print("\n15. kC_cipher_k: \n", kC_cipher_k)
+        #print("\n12. XY_k: \n", XY_k)
+        #print("\n13. kC_cipher_minus_k: \n", kC_cipher_minus_k)
+        #print("\n14. kP_cipher_plus_k: \n", kP_cipher_plus_k)
+        #print("\n15. kC_cipher_k: \n", kC_cipher_k)
 
     end_time = time.time()  # Record end time in senconds unit
-    print("Simulation time of step ", n, ": ", end_time - start_time)
+    #print("Simulation time of step ", n, ": ", end_time - start_time)
 
 kC_cipher_k_merge = split_images(
     kI=[kC_cipher_k], list_num_bits_pre=[list_num_bits_pre[k]]
 )
 
 save_images(kC_cipher_k_merge, dir_decrypted, [str_Fnames_cipher[k]], [grey_image[k]])
-show_images(
+#show_images(
     kI=kC_cipher_k_merge,
     suptitle="Decrypted images",
     str_Fnames=[str_Fnames_cipher[k]],
@@ -450,20 +450,20 @@ show_images(
 )
 
 
-print("---------------------------------------------------------")
-print("\t\tDecryption Initial Parameters")
-print("---------------------------------------------------------")
+#print("---------------------------------------------------------")
+#print("\t\tDecryption Initial Parameters")
+#print("---------------------------------------------------------")
 
-print("1. kC_cipher: \n", kC_cipher)
-print("\n2. kC_cipher_minus: \n", kC_cipher_minus)
-print("\n3. kP_cipher_plus: \n", kP_cipher_plus)
-print("\n4. S0: \n", S0)
-print("\n5. E: \n", E)
-print("\n6. States of LFSR: \n", last_state)
+#print("1. kC_cipher: \n", kC_cipher)
+#print("\n2. kC_cipher_minus: \n", kC_cipher_minus)
+#print("\n3. kP_cipher_plus: \n", kP_cipher_plus)
+#print("\n4. S0: \n", S0)
+#print("\n5. E: \n", E)
+#print("\n6. States of LFSR: \n", last_state)
 
-print("\n\n")
+#print("\n\n")
 
-print(
+#print(
     "=============================START DECRYPTION PROCESSING============================="
 )
 # lfsr = LFSR(fpoly=dicom_global_params.LFSR_POLY_INV, initstate=state_k, conf=dicom_global_params.TYPE_LFSR)
@@ -477,22 +477,22 @@ done = [0 for k in range(dicom_global_params.K)]
 
 # for n in range(dicom_global_params.Ne - 1, -1, -1):
 #     start_time = time.time() # Record start time in seconds unit
-#     print("\n")
-#     print("\t---------------------------------------------------------")
-#     print("\t-------------------|      STEP ",n,"   |-------------------")
-#     print("\t---------------------------------------------------------\n")
+#     #print("\n")
+#     #print("\t---------------------------------------------------------")
+#     #print("\t-------------------|      STEP ",n,"   |-------------------")
+#     #print("\t---------------------------------------------------------\n")
 for i in range(dicom_global_params.Ne * max_num_pix - 1, -1, -1):
-    print("\n------------------------")
-    print("|      Iteration " + str(i) + "     |")
-    print("------------------------")
+    #print("\n------------------------")
+    #print("|      Iteration " + str(i) + "     |")
+    #print("------------------------")
 
     # E, SK, state
     E, SK, state = bf.session_key_scheduling_dec(
         lfsr=lfsr, num_cycles=dicom_global_params.num_cycles
     )
-    print("\n1. E: \n", E, "\n")
-    print("\n2. SK: \n", SK, "\n")
-    print("\n3. LFSR's state: \n", state, "\n")
+    #print("\n1. E: \n", E, "\n")
+    #print("\n2. SK: \n", SK, "\n")
+    #print("\n3. LFSR's state: \n", state, "\n")
 
     # PCM Cat
     X_R = bf.pcm_cat(
@@ -502,7 +502,7 @@ for i in range(dicom_global_params.Ne * max_num_pix - 1, -1, -1):
         Y_FAST_Cat=dicom_cat_params.Y_FAST_Cat,
         R=R_iterations,
     )
-    print("4. X_R: \n", X_R, "\n")
+    #print("4. X_R: \n", X_R, "\n")
 
     # XY, phi generation
     XY_new, phi_source, phi_dest = bf.xy_phi_generation(
@@ -515,9 +515,9 @@ for i in range(dicom_global_params.Ne * max_num_pix - 1, -1, -1):
         i_base_position=dicom_cat_params.i_base_position,
         j_base_position=dicom_cat_params.j_base_position,
     )
-    print("5. XY_new: \n", XY_new, "\n")
-    print("6. phi_source: \n", phi_source, "\n")
-    print("7. phi_dest: \n", phi_dest, "\n")
+    #print("5. XY_new: \n", XY_new, "\n")
+    #print("6. phi_source: \n", phi_source, "\n")
+    #print("7. phi_dest: \n", phi_dest, "\n")
 
     # Bit Pre-processing for all images
     XY_P, phi_source_P, phi_dest_P = bf.bit_pre_processing(
@@ -528,9 +528,9 @@ for i in range(dicom_global_params.Ne * max_num_pix - 1, -1, -1):
         list_im_size=list_im_size,
         list_num_bits_pre=list_num_bits_pre,
     )
-    print("8. XY_P: \n", XY_P, "\n")
-    print("9. phi_source_P: \n", phi_source_P, "\n")
-    print("10. phi_dest_P: \n", phi_dest_P, "\n")
+    #print("8. XY_P: \n", XY_P, "\n")
+    #print("9. phi_source_P: \n", phi_source_P, "\n")
+    #print("10. phi_dest_P: \n", phi_dest_P, "\n")
 
     # Permutation and Diffusion for Encryption process
     XY, kC_cipher_minus, kP_cipher_plus, kC_cipher = bf.dicom_mie_perm_diff_dec(
@@ -548,20 +548,20 @@ for i in range(dicom_global_params.Ne * max_num_pix - 1, -1, -1):
         iter=i,
         done=done,
     )
-    print("\n11. XY: \n", XY)
-    print("\n12. list_n: \n", list_n)
-    print("\n13. kC_cipher_minus: \n", kC_cipher_minus)
-    print("\n14. kP_cipher_plus: \n", kP_cipher_plus)
-    print("\n15. kC_cipher: \n", kC_cipher)
-    print("\n16. done: \n", done)
+    #print("\n11. XY: \n", XY)
+    #print("\n12. list_n: \n", list_n)
+    #print("\n13. kC_cipher_minus: \n", kC_cipher_minus)
+    #print("\n14. kP_cipher_plus: \n", kP_cipher_plus)
+    #print("\n15. kC_cipher: \n", kC_cipher)
+    #print("\n16. done: \n", done)
 
     # end_time = time.time() # Record end time in senconds unit
-    # print("Simulation time of step ", n, ": ", end_time - start_time)
+    # #print("Simulation time of step ", n, ": ", end_time - start_time)
 
 kC_cipher_merge = split_images(kI=kC_cipher, list_num_bits_pre=list_num_bits_pre)
 
 save_images(kC_cipher_merge, dir_decrypted, str_Fnames_cipher, grey_image)
-show_images(
+#show_images(
     kI=kC_cipher_merge,
     suptitle="Decrypted images",
     str_Fnames=str_Fnames_cipher,
