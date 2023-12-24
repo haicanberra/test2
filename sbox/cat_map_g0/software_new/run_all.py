@@ -58,13 +58,13 @@ for i in range(0, N_files):
 # Show images
 kI_merge = split_images(kI=kI, list_num_bits_pre=list_num_bits_pre)
 #show_images(
-    kI=kI_merge,
-    suptitle="Plain images",
-    str_Fnames=str_Fnames,
-    size=(15, 15),
-    rows=4,
-    cols=4,
-)
+#     kI=kI_merge,
+#     suptitle="Plain images",
+#     str_Fnames=str_Fnames,
+#     size=(15, 15),
+#     rows=4,
+#     cols=4,
+# )
 
 # Destination folder
 dir_cipher = os.path.join(path, "cipher_images" + dicom_global_params.NamePCM)
@@ -273,13 +273,13 @@ for i in range(0, N_files):
 # Show images
 kI_cipher_merge = split_images(kI=kI_cipher, list_num_bits_pre=list_num_bits_pre)
 #show_images(
-    kI=kI_cipher_merge,
-    suptitle="Cipher images",
-    str_Fnames=str_Fnames_cipher,
-    size=(15, 15),
-    rows=4,
-    cols=4,
-)
+#     kI=kI_cipher_merge,
+#     suptitle="Cipher images",
+#     str_Fnames=str_Fnames_cipher,
+#     size=(15, 15),
+#     rows=4,
+#     cols=4,
+# )
 
 # kC_cipher
 kC_cipher = kI_cipher.copy()
