@@ -138,8 +138,8 @@ kP_plus = np.asarray(kP_plus)
 #print("\n\n")
 
 #print(
-    "=============================START ENCRYPTION PROCESSING============================="
-)
+#     "=============================START ENCRYPTION PROCESSING============================="
+# )
 
 lfsr = LFSR(seed=S0, taps=dicom_global_params.LFSR_POLY)
 state = lfsr.get_state()
@@ -339,8 +339,8 @@ state_k = last_state[k]
 #print("\n\n")
 
 #print(
-    "=============================START DECRYPTION PROCESSING============================="
-)
+#     "=============================START DECRYPTION PROCESSING============================="
+# )
 
 # lfsr = LFSR(fpoly=dicom_global_params.LFSR_POLY_INV, initstate=state_k, conf=dicom_global_params.TYPE_LFSR)
 lfsr = LFSR(seed=state_k, taps=dicom_global_params.LFSR_POLY_INV)
@@ -441,13 +441,13 @@ kC_cipher_k_merge = split_images(
 
 save_images(kC_cipher_k_merge, dir_decrypted, [str_Fnames_cipher[k]], [grey_image[k]])
 #show_images(
-    kI=kC_cipher_k_merge,
-    suptitle="Decrypted images",
-    str_Fnames=[str_Fnames_cipher[k]],
-    size=(5, 5),
-    rows=1,
-    cols=1,
-)
+#     kI=kC_cipher_k_merge,
+#     suptitle="Decrypted images",
+#     str_Fnames=[str_Fnames_cipher[k]],
+#     size=(5, 5),
+#     rows=1,
+#     cols=1,
+# )
 
 
 #print("---------------------------------------------------------")
@@ -464,8 +464,8 @@ save_images(kC_cipher_k_merge, dir_decrypted, [str_Fnames_cipher[k]], [grey_imag
 #print("\n\n")
 
 #print(
-    "=============================START DECRYPTION PROCESSING============================="
-)
+#     "=============================START DECRYPTION PROCESSING============================="
+# )
 # lfsr = LFSR(fpoly=dicom_global_params.LFSR_POLY_INV, initstate=state_k, conf=dicom_global_params.TYPE_LFSR)
 lfsr = LFSR(seed=last_state[max_picture], taps=dicom_global_params.LFSR_POLY_INV)
 XY = [
@@ -562,10 +562,10 @@ kC_cipher_merge = split_images(kI=kC_cipher, list_num_bits_pre=list_num_bits_pre
 
 save_images(kC_cipher_merge, dir_decrypted, str_Fnames_cipher, grey_image)
 #show_images(
-    kI=kC_cipher_merge,
-    suptitle="Decrypted images",
-    str_Fnames=str_Fnames_cipher,
-    size=(15, 15),
-    rows=4,
-    cols=4,
-)
+#     kI=kC_cipher_merge,
+#     suptitle="Decrypted images",
+#     str_Fnames=str_Fnames_cipher,
+#     size=(15, 15),
+#     rows=4,
+#     cols=4,
+# )
